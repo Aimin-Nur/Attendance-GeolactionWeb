@@ -16,7 +16,7 @@ class AuthController extends Controller
             ])){
             return redirect('/dashboard');
            }else{
-            return redirect('/')->with(['warning' => 'Nik dan Password tidak terdaftar.']);
+            return redirect('/')->with(['warning' => 'Nik atau Password tidak terdaftar.']);
            }
     }
 
