@@ -22,12 +22,22 @@
         height : auto !important;
         border-radius : 15px;
     }
+    #map { height: 180px; }
 </style>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+crossorigin=""/>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+crossorigin=""></script>
+
 
 @section('content')
 <div class="row" style="margin-top:70px">
     <div class="col">
-        <input type="text" id="lokasi">
+        <input type="hidden" id="lokasi">
         <div class="webcam"></div>
     </div>
 </div>
@@ -37,6 +47,12 @@
             <ion-icon name="camera-outline"></ion-icon>
             Absen masuk
         </button>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col">
+        <div id="map"></div>
     </div>
 </div>
 @endsection
@@ -59,6 +75,19 @@
 
     function successCallback(position){
         lokasi.value = position.coords.latitude+","+position.coords.longitude;
+        var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+        var circle = L.circle([-5.183721, 119.422279], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 50
+        }).addTo(map);
+
     }
 
     function errorsCallback(){
