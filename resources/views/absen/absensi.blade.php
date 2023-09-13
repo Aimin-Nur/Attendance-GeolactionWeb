@@ -3,7 +3,7 @@
 <!-- App Header -->
 <div class="appHeader bg-primary text-light">
         <div class="left">
-            <a href="javascript:;" class="headerButton goBack">
+            <a href="/dashboard" class="headerButton goBack">
                 <ion-icon name="chevron-back-outline"></ion-icon>
             </a>
         </div>
@@ -28,11 +28,14 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
 crossorigin=""/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 crossorigin=""></script>
-
+<link rel="stylesheet" href="sweetalert2.min.css">
 
 @section('content')
 <div class="row" style="margin-top:70px">
@@ -43,10 +46,17 @@ crossorigin=""></script>
 </div>
 <div class="row">
     <div class="col">
-        <button id="takeabsen" class="btn btn-primary btn-block">
-            <ion-icon name="camera-outline"></ion-icon>
-            Absen masuk
-        </button>
+        @if ($cek > 0)
+            <button id="takeabsen" class="btn btn-danger btn-block">
+                <ion-icon name="camera-outline"></ion-icon>
+                Absen pulang
+            </button>    
+        @else
+            <button id="takeabsen" class="btn btn-primary btn-block">
+                <ion-icon name="camera-outline"></ion-icon>
+                Absen masuk
+            </button>   
+        @endif
     </div>
 </div>
 
@@ -90,9 +100,63 @@ crossorigin=""></script>
 
     }
 
+    function getCurrentTimeFormatted() {
+        const currentTime = new Date();
+        const hours = currentTime.getHours().toString().padStart(2, '0');
+        const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+        const seconds = currentTime.getSeconds().toString().padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    }
+
+    // Menggunakan fungsi tersebut untuk mendapatkan waktu dalam format yang sesuai
+    const formattedTime = getCurrentTimeFormatted();
+
     function errorsCallback(){
 
     }
+
+    $('#takeabsen').click(function(e){
+        Webcam.snap(function(uri) {
+            image = uri;
+        });
+        var lokasi = $('#lokasi').val();
+        $.ajax({
+            type : 'POST',
+            url : '/absen/saveAbsen/',
+            data : {
+                _token: "{{ csrf_token() }}",
+                image: image,
+                lokasi: lokasi,
+                formattedTime: formattedTime
+            },
+            cache: false,
+            success: function(response){
+                if(response.success){
+                    var message = 'Absen Berhasil! Terima kasih dan Selamat Bekerja';
+                    if (response.type === 'out') {
+                        message = 'Absen Pulang Berhasil! Terima kasih dan Selamat Pulang';
+                    }
+                    Swal.fire({
+                        title: 'Notifikasi',
+                        text: message,
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                    setTimeout(function(){
+                        location.href = '/dashboard';
+                    }, 3000);
+                } else {
+                    Swal.fire({
+                        title: 'Absen Gagal!',
+                        text: 'Silahkan coba beberapa saat lagi.',
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            },
+        });
+    });
+
 
 
 </script>

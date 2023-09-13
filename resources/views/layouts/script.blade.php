@@ -16,9 +16,11 @@
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
     <!-- Base Js File -->
     <script src="{{ asset('assets/js/base.js')}}"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"
     integrity="sha512-dQIiHSl2hr3NWKKLycPndtpbh5iaHLo6MwrXm7F0FM5e+kL2U16oE9uIwPHUl6fQBeCthiEuV/rzP3MiAB8Vfw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   
 
     <script>
         am4core.ready(function () {

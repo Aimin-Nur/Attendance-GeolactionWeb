@@ -7,7 +7,7 @@
                 <strong>Dashboard</strong>
             </div>
         </a>
-        <a href="#" class="item active">
+        <a href="#" class="item {{ request()->is('calendar') ? 'active' : '' }} ">
             <div class="col">
                 <ion-icon name="calendar-outline" role="img" class="md hydrated"
                     aria-label="calendar outline"></ion-icon>
