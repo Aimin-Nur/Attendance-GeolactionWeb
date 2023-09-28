@@ -97,6 +97,49 @@
                 </div>
             </div>
 
+            <div id="rekapAbsensi">
+                <h4>Rekap Absensi Bulan {{ $namaBulan[$bulanini]}} {{$tahunini}}</h4>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body text-center" style="padding: 16px 12px !impoertant">
+                                <span class="badge bg-danger" style="position:absolute; top:5px; right:10px; font-size:0.6rem; 
+                                z-index:999">{{ $rekapPresensi->jml_hadir }}</span>
+                                <ion-icon name="body-outline" style="font-size:1.6rem;" class="text-primary"></ion-icon>
+                                <br>
+                                <span style="font-size:0.9rem; font-weight:500">Hadir</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body text-center" style="padding: 16px 12px !impoertant">
+                                <ion-icon name="newspaper-outline" style="font-size:1.6rem;" class="text-success"></ion-icon>
+                                <br>
+                                <span style="font-size:0.9rem; font-weight:500">Izin</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body text-center" style="padding: 16px 12px !impoertant">
+                                <ion-icon name="medkit-outline" style="font-size:1.6rem;" class="text-warning"></ion-icon>
+                                <br>
+                                <span style="font-size:0.9rem; font-weight:500">Sakit</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body text-center" style="padding: 16px 12px !impoertant">
+                                <ion-icon name="timer-outline" style="font-size:1.6rem;" class="text-danger"></ion-icon>
+                                <br>
+                                <span style="font-size:0.9rem; font-weight:500">Telat</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="presencetab mt-2">
                 <div class="tab-pane fade show active" id="pilled" role="tabpanel">
                     <ul class="nav nav-tabs style1" role="tablist">

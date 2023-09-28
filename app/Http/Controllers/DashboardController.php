@@ -14,8 +14,27 @@ class DashboardController extends Controller
     public function index()
     {
         $today = date("Y-m-d");
+        $bulanini = date("m") * 1;
+        $tahunini = date("Y");
         $nip = Auth::guard('karyawan')->user()->NIP;
         $presensiToday = DB::table('absen')->where('tgl_absen',$today)->where('NIP',$nip)->first();
-        return view('dashboard.dashboard', compact('presensiToday'));
+
+        $historybulanini = DB::table('absen')
+            ->where('nip', $nip)
+            ->whereRaw('MONTH(tgl_absen) = "' . $bulanini . '"')
+            ->whereRaw('YEAR(tgl_absen) = "' . $tahunini . '"')
+            ->orderBy('tgl_absen')
+            ->get();
+
+        $namaBulan =  ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        // dd($namaBulan[$bulanini]);
+
+        $rekapPresensi = DB::table('absen')->selectRaw('COUNT(nip) as jml_hadir')
+            ->where('nip', $nip)
+            ->whereRaw('MONTH(tgl_absen) = "' . $bulanini . '"')
+            ->whereRaw('YEAR(tgl_absen) = "' . $tahunini . '"')
+            ->first();
+
+        return view('dashboard.dashboard', compact('presensiToday', 'namaBulan','bulanini','tahunini', 'rekapPresensi'));
     }
 }
