@@ -17,6 +17,7 @@ class DashboardController extends Controller
         $bulanini = date("m") * 1;
         $tahunini = date("Y");
         $nip = Auth::guard('karyawan')->user()->NIP;
+        $karyawan = DB::table('pegawai')->where('NIP', $nip)->first();
         $presensiToday = DB::table('absen')->where('tgl_absen',$today)->where('NIP',$nip)->first();
 
         $historybulanini = DB::table('absen')
@@ -35,6 +36,6 @@ class DashboardController extends Controller
             ->whereRaw('YEAR(tgl_absen) = "' . $tahunini . '"')
             ->first();
 
-        return view('dashboard.dashboard', compact('presensiToday', 'namaBulan','bulanini','tahunini', 'rekapPresensi'));
+        return view('dashboard.dashboard', compact('presensiToday', 'namaBulan','bulanini','tahunini', 'rekapPresensi', 'karyawan'));
     }
 }

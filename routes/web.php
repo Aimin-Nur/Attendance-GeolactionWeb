@@ -31,5 +31,10 @@ Route::middleware(['auth:karyawan'])->group(function (){
     // Absensi karyawan
     Route::get('/absen/absensi', [AbsensiController::class, 'AbsensiKaryawan']);
     Route::post('/absen/saveAbsen', [AbsensiController::class, 'saveAbsen']);
+
+    // Edit Profile Karyawan
+    Route::get('/editProfile', [AbsensiController::class, 'editProfil'])->name('editProfile');
+    Route::post('/absen/{NIP}/updateProfil', [AbsensiController::class, 'updateProfil']);
+
 });
 

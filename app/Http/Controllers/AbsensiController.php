@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Absen;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class AbsensiController extends Controller
 {
@@ -84,6 +86,51 @@ class AbsensiController extends Controller
                 // Tangani kesalahan
                 return response()->json(['error' => 'Gagal menyimpan data. Pesan kesalahan: ' . $e->getMessage()], 500);
             }    
+        }
+    }
+
+    public function editProfil()
+    {
+        $nip = Auth::guard('karyawan')->user()->NIP;
+        $karyawan = DB::table('pegawai')->where('NIP', $nip)->first();
+        return view('absen.editProfil', compact('karyawan'));
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $nip = Auth::guard('karyawan')->user()->NIP;
+        $namaLengkap = $request->nama_lengkap;
+        $no_hp = $request->no_hp;   
+        $password = Hash::make($request->paswword);
+        $karyawan = DB::table('pegawai')->where('NIP', $nip)->first();
+        if($request->hasFile('foto')){
+            $foto = $nip . "." . $request->file('foto')->getClientOriginalExtension();
+        }else{
+            $foto = $karyawan->foto;
+        }
+        if(!empty($request->password)){
+            $data = [
+                'nama_lengkap' => $namaLengkap,
+                'no_hp' => $no_hp,
+                'foto' => $foto
+            ];
+        }else{
+            $data = [
+                'nama_lengkap' => $namaLengkap,
+                'no_hp' => $no_hp,
+                'password' => $password,
+                'foto' => $foto
+            ];
+        }
+        $update = DB::table('pegawai')->where('NIP', $nip)->update($data);
+        if($update){
+            if($request->hasFile('foto')){
+               $folderPath = "public/uploads/karyawan/";
+               $request->file('foto')->storeAs($folderPath, $foto);
+            }
+            return Redirect::back()->with(['success' => 'Data Profil Berhasil Diupdate']);
+        }else{
+            return Redirect::back()->with(['error' => 'Data Profil Gagal Diupdate']);
         }
     }
 }

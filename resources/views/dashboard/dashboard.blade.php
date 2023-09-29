@@ -4,11 +4,18 @@
         <div class="section" id="user-section">
             <div id="user-detail">
                 <div class="avatar">
+                    @if(!empty(Auth::guard('karyawan')->user()->foto))
+                    @php
+                        $path = Storage::url('uploads/karyawan/' .Auth::guard('karyawan')->user()->foto);
+                    @endphp
+                    <img src="{{url($path)}}" alt="avatar" class="imaged w64 rounded">
+                    @else
                     <img src="{{asset('assets/img/sample/avatar/avatar1.jpg')}}" alt="avatar" class="imaged w64 rounded">
+                    @endif
                 </div>
                 <div id="user-info">
-                    <h2 id="user-name">Muhaimin Nur</h2>
-                    <span id="user-role">Head of IT</span>
+                    <h2 id="user-name">{{$karyawan->nama_lengkap}}</h2>
+                    <span id="user-role">{{$karyawan->jabatan}}</span>
                 </div>
             </div>
         </div>
@@ -19,7 +26,7 @@
                     <div class="list-menu">
                         <div class="item-menu text-center">
                             <div class="menu-icon">
-                                <a href="" class="green" style="font-size: 40px;">
+                                <a href="/editProfile" class="green" style="font-size: 40px;">
                                     <ion-icon name="person-sharp"></ion-icon>
                                 </a>
                             </div>
