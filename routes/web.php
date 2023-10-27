@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,19 @@ Route::middleware(['guest:karyawan'])->group(function (){
     Route::post('/LoginKaryawan', [AuthController::class, 'LoginKaryawan']);    
 });
 
+Route::get('/portal', function () {
+    return view('admin.loginAdmin');
+})->name('loginadmin');
+Route::post('/portal/LoginAdmin', [AuthController::class, 'LoginAdmin']);    
+
+#BuG Login Admin
+// Route::middleware(['guest:admin'])->group(function (){
+//     Route::get('/panel', function () {
+//         return view('admin.loginAdmin');
+//     })->name('loginadmin');
+//     Route::post('/portal/LoginAdmin', [AuthController::class, 'LoginAdmin']);    
+// });
+
 Route::middleware(['auth:karyawan'])->group(function (){
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/LogoutKaryawan', [AuthController::class, 'LogoutKaryawan']);
@@ -35,6 +49,13 @@ Route::middleware(['auth:karyawan'])->group(function (){
     // Edit Profile Karyawan
     Route::get('/editProfile', [AbsensiController::class, 'editProfil'])->name('editProfile');
     Route::post('/absen/{NIP}/updateProfil', [AbsensiController::class, 'updateProfil']);
-
 });
+
+Route::middleware(['auth:admin'])->group(function (){
+    Route::get('/dashboardAdmin', [AdminController::class, 'dashboard']);
+    Route::get('/LogoutAdmin', [AuthController::class, 'LogoutAdmin']);
+});
+
+
+    
 
