@@ -30,6 +30,18 @@
         <div class="card card-md">
           <div class="card-body">
             <h2 class="h2 text-center mb-4">Portal Login Admin</h2>
+            <?php
+                    $gagalLogin = Session::get('warning');
+                    if ($gagalLogin) {
+                        echo '<div class="alert alert-danger">' . $gagalLogin . '</div>';
+                    }
+            ?>
+             <?php
+             $logout = Session::get('sukses');
+             if ($logout) {
+                 echo '<div class="alert alert-success">' . $logout . '</div>';
+             }
+            ?>
             <form action="/portal/LoginAdmin" method="post" autocomplete="off" novalidate>
                 @csrf
               <div class="mb-3">

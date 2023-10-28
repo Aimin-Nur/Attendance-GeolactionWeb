@@ -101,7 +101,7 @@ class AbsensiController extends Controller
         $nip = Auth::guard('karyawan')->user()->NIP;
         $namaLengkap = $request->nama_lengkap;
         $no_hp = $request->no_hp;   
-        $password = Hash::make($request->paswword);
+        $password = Hash::make($request->password);
         $karyawan = DB::table('pegawai')->where('NIP', $nip)->first();
         if($request->hasFile('foto')){
             $foto = $nip . "." . $request->file('foto')->getClientOriginalExtension();

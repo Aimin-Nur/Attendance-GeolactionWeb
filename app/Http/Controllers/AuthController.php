@@ -36,7 +36,7 @@ class AuthController extends Controller
             ])){
             return redirect('/dashboardAdmin');
            }else{
-            return redirect('/')->with(['warning' => 'NIP atau Password Anda tidak terdaftar.']);
+            return redirect('/portal')->with(['warning' => 'Email atau Password Anda tidak terdaftar.']);
            }
     }
 
@@ -45,7 +45,7 @@ class AuthController extends Controller
     {
         if(Auth::guard('admin')->check()){
             Auth::guard('admin')->logout();
-            return redirect('/portal');
+            return redirect('/portal')->with(['sukses' => 'Anda Berhasil Logout.']);;
         }
     }
 }

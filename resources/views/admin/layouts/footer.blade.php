@@ -38,13 +38,13 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title">New report</h5>
+      <h5 class="modal-title">Data Karyawan</h5>
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
       <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input type="text" class="form-control" name="example-text-input" placeholder="Your report name">
+        <label class="form-label">Nama Lengkap</label>
+        <input type="text" class="form-control" name="example-text-input" placeholder="Nama Lengkap">
       </div>
       <label class="form-label">Report type</label>
       <div class="form-selectgroup-boxes row mb-3">

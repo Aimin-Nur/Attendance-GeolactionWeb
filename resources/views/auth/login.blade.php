@@ -153,7 +153,7 @@
                     if ($gagalLogin) {
                         echo '<div class="alert alert-danger">' . $gagalLogin . '</div>';
                     }
-                    ?>
+                ?>
                 <form action="/LoginKaryawan" method="post">
                     @csrf
                   <div class="mb-3">

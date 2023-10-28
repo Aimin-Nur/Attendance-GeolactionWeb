@@ -1378,4 +1378,4 @@
     </div>
    
 @include('admin.layouts.footer')
-@include('admin.layouts.script')
+@include('admin.layouts.script')x
