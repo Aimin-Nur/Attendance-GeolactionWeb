@@ -83,4 +83,17 @@ class AdminController extends Controller
 
         return redirect('/dataKaryawan')->with('edit', 'Data Karyawan berhasil diubah');
     }
+
+    public function deleteKaryawan($nip)
+    {
+        $karyawan = ModelKaryawan::where('NIP', $nip)->first();
+
+        if (!$karyawan) {
+            return redirect('/dataKaryawan')->with('error', 'Pegawai tidak ditemukan');
+        }
+
+        $karyawan->delete();
+
+        return redirect('/dataKaryawan')->with('delete', 'Data Karyawan berhasil dihapus');
+    }
 }

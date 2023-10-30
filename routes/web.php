@@ -57,6 +57,7 @@ Route::middleware(['auth:admin'])->group(function (){
     Route::get('/LogoutAdmin', [AuthController::class, 'LogoutAdmin']);
     Route::post('/addKaryawan', [AdminController::class, 'addKaryawan']);
     Route::post('/editKaryawan/{NIP}', [AdminController::class, 'editKaryawan']);
+    Route::post('/deleteKaryawan/{NIP}', [AdminController::class, 'deleteKaryawan']);
 });
 
 
