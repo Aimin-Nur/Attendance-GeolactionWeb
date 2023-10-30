@@ -55,6 +55,7 @@ Route::middleware(['auth:admin'])->group(function (){
     Route::get('/dashboardAdmin', [AdminController::class, 'dashboard']);
     Route::get('/dataKaryawan', [AdminController::class, 'dataKaryawan']);
     Route::get('/LogoutAdmin', [AuthController::class, 'LogoutAdmin']);
+    Route::post('/addKaryawan', [AdminController::class, 'addKaryawan']);
 });
 
 
