@@ -40,6 +40,12 @@
               echo '<div class="alert alert-success">' . $sukses . '</div>';
           }
           ?>
+           <?php
+           $sukses = Session::get('edit');
+           if ($sukses) {
+               echo '<div class="alert alert-info">' . $sukses . '</div>';
+           }
+           ?>
           <div class="col-12">
             <div class="card">
               <div class="table-responsive">
@@ -47,8 +53,8 @@
     class="table table-vcenter table-mobile-md card-table">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Title</th>
+                      <th>Nama Karyawan</th>
+                      <th>Jabatan & Nip</th>
                       <th>Alamat Email</th>
                       <th class="w-1"></th>
                     </tr>
@@ -68,7 +74,7 @@
                             @endif
                           <div class="flex-fill">
                             <div class="font-weight-medium">{{$karyawan->nama_lengkap}}</div>
-                            <div class="text-muted"><a href="#" class="text-reset">t{{$karyawan->no_hp}}</a></div>
+                            <div class="text-muted"><a href="#" class="text-reset">{{$karyawan->no_hp}}</a></div>
                           </div>
                         </div>
                       </td>
@@ -81,22 +87,12 @@
                       </td>
                       <td>
                         <div class="btn-list flex-nowrap">
-                          <a href="#" class="btn">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#modal-edit{{$karyawan->NIP}}" class="btn">
                             Edit
                           </a>
-                          <div class="dropdown">
-                            <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
-                              Actions
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                              <a class="dropdown-item" href="#">
-                                Action
-                              </a>
-                              <a class="dropdown-item" href="#">
-                                Another action
-                              </a>
-                            </div>
-                          </div>
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#modal-hapus{{$karyawan->NIP}}" class="btn btn-danger">
+                            Delete
+                          </a>
                         </div>
                       </td>
                     </tr>
@@ -109,6 +105,91 @@
         </div>
       </div>
     </div>
+
+{{-- Modal Edit data --}}
+@foreach ($dataKaryawan as $karyawan )
+<div class="modal modal-blur fade" id="modal-edit{{$karyawan->NIP}}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Data Karyawan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/editKaryawan/{{$karyawan->NIP}}" method="POST" enctype="multipart/form-data">
+        @csrf
+      <div class="modal-body">
+        @if ($errors->any())
+                      <div class="alert alert-danger">
+                          <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+        @endif
+        <div class="mb-3">
+          <label class="form-label">Nomor Induk Pegawai</label>
+          <input name="NIP" value="{{ $karyawan->NIP }}" class="form-control" placeholder="S1321006" readonly>
+          <small class="ms-1 mt-2 markdown text-muted">
+            Nomor Induk Pegawai tidak dapat di edit.
+          </small>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Nama Lengkap</label>
+          <input name="nama" value="{{ $karyawan->nama_lengkap }}" type="text" class="form-control" placeholder="Nama Lengkap">
+        </div>
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="mb-3">
+              <label class="form-label">Nomor Telpon</label>
+              <div class="input-group input-group-flat">
+                <span class="input-group-text">
+                </span>
+                <input value="{{$karyawan->no_hp}}" name="nomor_hp" type="number" placeholder="+62 8782-2231-232" class="form-control ps-0" autocomplete="off">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="mb-3">
+              <label class="form-label">Jabatan</label>
+              <select value="{{$karyawan->jabatan}}" name="jabatan" class="form-select">
+                <option value="Human Resource" selected>HR</option>
+                <option value="Arsitek">Arsitek</option>
+                <option value="Karyawan">Karyawan</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="mb-3">
+              <label class="form-label">Alamat Email</label>
+              <input value="{{$karyawan->email}}" name="email" type="text" placeholder="adminportal@gmail.com" class="form-control">
+            </div>
+          </div>
+        </div>
+        <small class="markdown text-muted">
+          Password akun karyawan akan secara otomatis menjadi "portal".
+          Hanya karyawan yang bersangkutan yang dapat melakukan perubahan kata sandi.
+        </small>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+          Cancel
+        </a>
+        <button type="submit" class="btn btn-info ms-auto" data-bs-dismiss="modal">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+          Edit Data Karyawan
+        </button>
+      </div>
+    </form>
+    </div>
+  </div>
+  </div>
+  @endforeach
+
 
 @include('admin.layouts.footer')
 @include('admin.layouts.script')

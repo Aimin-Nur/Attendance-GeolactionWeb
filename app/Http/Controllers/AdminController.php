@@ -51,8 +51,36 @@ class AdminController extends Controller
         $addKaryawan->no_hp = $request->input('nomor_hp');
         $addKaryawan->jabatan = $request->input('jabatan');
         $addKaryawan->email = $request->input('email');
+        $addKaryawan->password = $request->input('password');
 
         $addKaryawan->save();
-        return redirect('/dataKaryawan')->with('success', 'Data Karyawan berhasil Ditambahakn..');
+        return redirect('/dataKaryawan')->with('success', 'Data Karyawan berhasil Ditambahkan.');
+    }
+
+    public function editKaryawan(Request $request, $nip)
+    {
+        $karyawan = ModelKaryawan::where('NIP', $nip)->first();
+        
+        if (!$karyawan) {
+            return redirect('/dataKaryawan')->with('error', 'Pegawai tidak ditemukan');
+        }
+
+        // Validasi data yang diinput oleh pengguna
+        $this->validate($request, [
+            'nama' => 'required',
+            'nomor_hp' => 'required',
+            'jabatan' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        // Simpan perubahan data
+        $karyawan->nama_lengkap = $request->input('nama');
+        $karyawan->no_hp = $request->input('nomor_hp');
+        $karyawan->jabatan = $request->input('jabatan');
+        $karyawan->email = $request->input('email');
+
+        $karyawan->update();
+
+        return redirect('/dataKaryawan')->with('edit', 'Data Karyawan berhasil diubah');
     }
 }

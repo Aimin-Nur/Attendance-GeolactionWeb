@@ -3,15 +3,10 @@
       <div class="row text-center align-items-center flex-row-reverse">
         <div class="col-lg-auto ms-lg-auto">
           <ul class="list-inline list-inline-dots mb-0">
-            <li class="list-inline-item"><a href="https://tabler.io/docs" target="_blank" class="link-secondary" rel="noopener">Documentation</a></li>
-            <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a></li>
-            <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
+            <li class="list-inline-item"><a href="/dashboardAdmin" target="_blank" class="link-secondary" rel="noopener">Home</a></li>
+            <li class="list-inline-item"><a href="/dataKaryawan" class="link-secondary">Data Karyawan</a></li>
+            <li class="list-inline-item"><a href="/" target="_blank" class="link-secondary" rel="noopener">Logout</a></li>
             <li class="list-inline-item">
-              <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary" rel="noopener">
-                <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink icon-filled icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                Sponsor
-              </a>
             </li>
           </ul>
         </div>
@@ -21,11 +16,6 @@
               Copyright &copy; 2023
               <a href="." class="link-secondary">Tabler</a>.
               All rights reserved.
-            </li>
-            <li class="list-inline-item">
-              <a href="{{asset('demo')}}/./changelog.html" class="link-secondary" rel="noopener">
-                v1.0.0-beta19
-              </a>
             </li>
           </ul>
         </div>
@@ -55,43 +45,12 @@
       @endif
       <div class="mb-3">
         <label class="form-label">Nomor Induk Pegawai</label>
-        <input name="NIP" value="{{ old('NIP') }}" class="form-control" name="example-text-input" placeholder="S1321006">
+        <input name="NIP" value="{{ old('NIP') }}" class="form-control" placeholder="S1321006">
       </div>
       <div class="mb-3">
         <label class="form-label">Nama Lengkap</label>
-        <input name="nama" value="{{ old('nama') }}" type="text" class="form-control" name="example-text-input" placeholder="Nama Lengkap">
+        <input name="nama" value="{{ old('nama') }}" type="text" class="form-control" placeholder="Nama Lengkap">
       </div>
-      {{-- <label class="form-label">Report type</label>
-      <div class="form-selectgroup-boxes row mb-3">
-        <div class="col-lg-6">
-          <label class="form-selectgroup-item">
-            <input type="radio" name="report-type" value="1" class="form-selectgroup-input" checked>
-            <span class="form-selectgroup-label d-flex align-items-center p-3">
-              <span class="me-3">
-                <span class="form-selectgroup-check"></span>
-              </span>
-              <span class="form-selectgroup-label-content">
-                <span class="form-selectgroup-title strong mb-1">Simple</span>
-                <span class="d-block text-muted">Provide only basic data needed for the report</span>
-              </span>
-            </span>
-          </label>
-        </div>
-        <div class="col-lg-6">
-          <label class="form-selectgroup-item">
-            <input type="radio" name="report-type" value="1" class="form-selectgroup-input">
-            <span class="form-selectgroup-label d-flex align-items-center p-3">
-              <span class="me-3">
-                <span class="form-selectgroup-check"></span>
-              </span>
-              <span class="form-selectgroup-label-content">
-                <span class="form-selectgroup-title strong mb-1">Advanced</span>
-                <span class="d-block text-muted">Insert charts and additional advanced analyses to be inserted in the report</span>
-              </span>
-            </span>
-          </label>
-        </div>
-      </div> --}}
       <div class="row">
         <div class="col-lg-8">
           <div class="mb-3">
@@ -121,6 +80,7 @@
           <div class="mb-3">
             <label class="form-label">Alamat Email</label>
             <input value="{{old('email')}}" name="email" type="text" placeholder="adminportal@gmail.com" class="form-control">
+            <input name="password" value="$2y$10$LjgOlEWekYTfTR1miZDN9OPWTtA6PA/4Q48Vn0JQVN8ofx7X7z02e" type="hidden" class="form-control">
           </div>
         </div>
         {{-- <div class="col-lg-6">
@@ -136,6 +96,10 @@
           </div>
         </div> --}}
       </div>
+      <small class="markdown text-muted">
+        Password akun karyawan akan secara otomatis menjadi "portal".
+        Hanya karyawan yang bersangkutan yang dapat melakukan perubahan kata sandi.
+      </small>
     </div>
     <div class="modal-footer">
       <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
