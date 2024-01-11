@@ -1,0 +1,73 @@
+@page { size: A4 }
+
+.cd__main{
+  background: linear-gradient(to right, #427D9D, #164863) !important;
+}
+body {
+ background: #EEE;
+ /* font-size:0.9em !important; */
+}
+
+.invoice {
+ background: #fff;
+ width: 970px !important;
+ margin: 50px auto;
+}
+.invoice .invoice-header {
+ padding: 25px 25px 15px;
+}
+.invoice .invoice-header h1 {
+ margin: 0;
+}
+.invoice .invoice-header .media .media-body {
+ font-size: 0.9em;
+ margin: 0;
+}
+.invoice .invoice-body {
+ border-radius: 10px;
+ padding: 25px;
+ background: #FFF;
+}
+.invoice .invoice-footer {
+ padding: 15px;
+ font-size: 0.9em;
+ text-align: center;
+ color: #999;
+}
+
+.logo {
+ max-height: 70px;
+ border-radius: 10px;
+}
+
+.dl-horizontal {
+ margin: 0;
+}
+.dl-horizontal dt {
+ float: left;
+ width: 80px;
+ overflow: hidden;
+ clear: left;
+ text-align: right;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+.dl-horizontal dd {
+ margin-left: 90px;
+}
+
+.rowamount {
+ padding-top: 15px !important;
+}
+
+.rowtotal {
+ font-size: 1.3em;
+}
+
+.colfix {
+ width: 12%;
+}
+
+.mono {
+ font-family: monospace;
+}

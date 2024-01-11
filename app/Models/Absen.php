@@ -16,5 +16,7 @@ class Absen extends Model
         'jam_in', 
         'foto_in', 
         'location', 
+        'status',
+        'keterlambatan'
     ];
 }

@@ -49,6 +49,10 @@ Route::middleware(['auth:karyawan'])->group(function (){
     // Edit Profile Karyawan
     Route::get('/editProfile', [AbsensiController::class, 'editProfil'])->name('editProfile');
     Route::post('/absen/{NIP}/updateProfil', [AbsensiController::class, 'updateProfil']);
+    Route::get('/absen/izin', [AbsensiController::class, 'izin']);
+    Route::get('/absen/formizin', [AbsensiController::class, 'formIzin']);
+    Route::post('/absen/saveIzin', [AbsensiController::class, 'saveIzin']);
+    Route::get('/LogoutKaryawan', [AuthController::class, 'LogoutKaryawan']);
 });
 
 Route::middleware(['auth:admin'])->group(function (){
@@ -58,6 +62,13 @@ Route::middleware(['auth:admin'])->group(function (){
     Route::post('/addKaryawan', [AdminController::class, 'addKaryawan']);
     Route::post('/editKaryawan/{NIP}', [AdminController::class, 'editKaryawan']);
     Route::post('/deleteKaryawan/{NIP}', [AdminController::class, 'deleteKaryawan']);
+    Route::get('/monitoring/absen', [AdminController::class, 'monitoringAbsen']);
+    Route::POST('/getMonitoring/absen', [AdminController::class, 'getMonitoring']);
+    Route::get('/monitoring/perizinan', [AdminController::class, 'monitoringPerizinan']);
+    Route::post('/perizinanKaryawan/{id}', [AdminController::class, 'perizinanKaryawan']);
+    Route::get('/portal/laporan', [AdminController::class, 'laporanAbsensi']);
+    Route::post('/portal/cetak/laporan', [AdminController::class, 'cetakLaporan'])->name('cetak.laporan');
+    Route::post('/portal/cetak/rekapan', [AdminController::class, 'cetakRekapan'])->name('cetak.rekapan');;
 });
 
 

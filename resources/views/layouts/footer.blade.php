@@ -1,6 +1,6 @@
  <!-- App Bottom Menu -->
  <div class="appBottomMenu">
-        <a href="#" class="item {{ request()->is('dashboard') ? 'active' : '' }} ">
+        <a href="/dashboard" class="item {{ request()->is('dashboard') ? 'active' : '' }} ">
             <div class="col">
                 <ion-icon name="home-outline" role="img" class="md hydrated"
                     aria-label="file tray full outline"></ion-icon>
@@ -21,11 +21,11 @@
                 </div>
             </div>
         </a>
-        <a href="#" class="item">
+        <a href="/absen/izin" class="item {{ request()->is('absen/izin') ? 'active' : '' }} ">
             <div class="col">
                 <ion-icon name="document-text-outline" role="img" class="md hydrated"
                     aria-label="document text outline"></ion-icon>
-                <strong>Docs</strong>
+                <strong>Izin</strong>
             </div>
         </a>
         <a href="/editProfile" class="item">

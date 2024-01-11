@@ -68,7 +68,7 @@
           </div>
         </div>
         <div class="text-center text-muted mt-3">
-          Don't have account yet? <a href="./sign-up.html" tabindex="-1">Sign up</a>
+          Akses Login Admin Monitoring Absensi Karyawan <br> <div class="text-center">PT. Portal Indonesia Perkasa</div>
         </div>
       </div>
     </div>

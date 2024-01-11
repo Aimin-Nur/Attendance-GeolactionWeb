@@ -13,8 +13,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000">
     <title>Home</title>
-    <meta name="description" content="Mobilekit HTML Mobile UI Kit">
-    <meta name="keywords" content="bootstrap 4, mobile template, cordova, phonegap, mobile, html" />
+    <meta name="description" content="Aplikasi Absensi karyawan Geo-Lokasi PT. Portal Indonesia">
+    <meta name="keywords" content="Aplikasi Absensi berbasis Web PT. Portal Indonesia Perkasa " />
     <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}" sizes="32x32">
     <link rel="apple-touch-icon" sizes="180x180" href="{{asset('assets/img/favicon.png')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
