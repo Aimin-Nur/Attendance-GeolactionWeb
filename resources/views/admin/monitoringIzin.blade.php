@@ -63,8 +63,8 @@
                   <thead>
                     <tr>
                       <th>Nama Karyawan</th>
-                      <th>Jabatan & Nip</th>
                       <th>Tanggal Perizinan</th>
+                      <th>Jabatan & Nip</th>
                       <th>Izin/Sakit</th>
                       <th>Keterangan</th>
                       <th class="w-1"></th>
@@ -84,31 +84,33 @@
                             <img src="{{asset('assets/img/sample/avatar/avatar1.jpg')}}" alt="avatar" class="avatar me-2">
                             @endif
                           <div class="flex-fill">
-                            <div class="font-weight-medium">{{$karyawan->nama_lengkap}}</div>
-                            <div class="text-muted"><a href="#" class="text-reset">{{$karyawan->NIP}}</a></div>
+                            <div class="font-weight-medium">{{$karyawan->pegawai->nama_lengkap ?? ''}}</div>
+                            <div class="text-muted"><a href="#" class="text-reset">{{$karyawan->NIP ?? ''}}</a></div>
                           </div>
                         </div>
                       </td>
                       <td class="text-muted" data-label="Role" >
-                        <div>{{$karyawan->tgl_izin}}</div>
+                        <div>{{$karyawan->tgl_izin ?? '' }}</div>
                       </td>
                       <td data-label="Title" >
-                        <div>{{$karyawan->jabatan}}</div>
+                        <div>{{$karyawan->pegawai->jabatan ?? ''}}</div>
                       </td>
                       <td class="text-muted" data-label="Role" >
-                        <div>{{$karyawan->status}}</div>
+                        <div>{{$karyawan->status ?? ''}}</div>
                       </td>
                       <td class="w-10">
-                        <i>{{$karyawan->keterangan}}</i>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-detail{{$karyawan->id ?? ''}}" class="btn btn-sm btn-outline-info">
+                          Alasan Perizinan
+                        </a>
                       </td>
                       <td>
                         <div class="btn-list flex-nowrap">
                             @if ($karyawan->status_approved == "Sudah Tervalidasi")
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-danger{{$karyawan->id}}" class="btn disabled btn-success">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-danger{{$karyawan->id ?? ''}}" class="btn disabled btn-success">
                                 Sudah Tervalidasi
                               </a>
                             @else
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-danger{{$karyawan->id}}" class="btn btn-outline-danger">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-danger{{$karyawan->id ?? ''}}" class="btn btn-outline-danger">
                                 Belum Tervalidasi
                               </a>
                             @endif
@@ -119,12 +121,19 @@
                     @endforeach
                   </tbody>
                 </table>
+                <div class="card-footer d-flex align-items-center">
+                  {{-- <p class="m-0 text-secondary">Showing <span> {{ $dataKaryawan->firstItem() ?? '' }} </span> to <span> {{$dataKaryawan->lastItem() ?? ''}}</span> of <span>{{$countData ?? ''}}</span> entries</p>
+                  <ul class="pagination m-0 ms-auto">
+                    {{$dataKaryawan->links() ?? ''}} --}}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
 
   {{-- Modal Hapus Data Karyawan --}}
   @foreach ($dataKaryawan as $karyawan )
@@ -139,6 +148,7 @@
           <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
           <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
           <h3>Konfirmasi Perizinan Karyawan?</h3>
+          <input name="field_email" type="text" value="{{$karyawan->pegawai->email}}">
           <div class="text-muted">Tindakan ini akan membuat pengajuan perizinan karyawan atas nama <b>{{$karyawan->nama_lengkap}}</b> disetujui, data perizinan karyawan akan secara otomatis tersimpan di pelaporan absensi karyawan.</div>
         </div>
         <input type="hidden" name="status_approved" value="Sudah Tervalidasi">
@@ -157,6 +167,40 @@
       </div>
     </form>
     </div>
+  </div>
+  @endforeach
+
+
+  {{-- Modal Edit data --}}
+@foreach ($dataKaryawan as $karyawan )
+<div class="modal modal-blur fade" id="modal-detail{{$karyawan->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Perizinan Karyawan</h5>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="mb-3">
+              <label class="form-label">Alasan Perizinan Karyawan</label>
+             
+            </div>
+          </div>
+        </div>
+        <span class="markdown text-muted">
+          {{$karyawan->keterangan ?? ''}}
+        </span>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+          Oke
+        </a>
+      </div>
+    </form>
+    </div>
+  </div>
   </div>
   @endforeach
 

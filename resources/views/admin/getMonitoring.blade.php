@@ -120,7 +120,7 @@
          <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                  <div id="map"></div>
+                  
                     <div class="card">
                       <div class="row row-0">
                         <div class="col-3 order-md-last">
@@ -131,14 +131,13 @@
                         <div class="col">
                           <div class="card-body">
                             <h3 class="card-title">Jam Masuk : {{$item->jam_in}}</h3>
-                            <h3 class="card-title">Lokasi Absen Masuk : <a href="https://www.google.com/search?q={{$item->location}}" target=_blank> Lihat Disini</a> </h3>
+                            <h3 class="card-title">Lokasi Absen Masuk : <a style=" color: #007bff; text-decoration: underline;" href="https://www.google.com/search?q={{$item->location}}" target=_blank> Lihat Disini</a> </h3>
                           </div>
                         </div>
                       </div>
                     </div>
                 </div>
                 <div class="col-lg-12 mt-5">
-                  <div id="mapPulang"></div>
                     <div class="card">
                       <div class="row row-0">
                         <div class="col-3 order-md-last">
@@ -150,7 +149,7 @@
                           <div class="card-body">
                            
                             <h3 class="card-title">Jam Pulang : {{$item->jam_out}}</h3>
-                            <h3 class="card-title">Lokasi Absen Pulang : <a href="https://www.google.com/search?q={{$item->location_out}}" target=_blank> Lihat Disini</a> </h3>
+                            <h3 class="card-title">Lokasi Absen Pulang : <a style=" color: #007bff; text-decoration: underline;" href="https://www.google.com/search?q={{$item->location_out}}" target=_blank> Lihat Disini</a></h3>
                           </div>
                         </div>
                       </div>
@@ -173,34 +172,6 @@
       </div>
     </div>
   </div>
-
-<script>
-    var lokasi = "{{$item->location}}";
-    var lok = lokasi.split(",");
-    var latitude = lok[0];
-    var longitude = lok[1];
-    var map = L.map('map').setView([latitude, longitude], 13);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(map);
-  var marker = L.marker([latitude, longitude]).addTo(map);
-  </script>
-  
-  
-  <script>
-    var lokasiPulang = "{{$item->location_out}}";
-    var lokPulang = lokasiPulang.split(",");
-    var latitudePulang = lokPulang[0];  // Perbaikan: Gunakan lokPulang bukan lok
-    var longitudePulang = lokPulang[1]; // Perbaikan: Gunakan lokPulang bukan lok
-    var mapPulang = L.map('mapPulang').setView([latitudePulang, longitudePulang], 13);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(mapPulang);
-    var markerPulang = L.marker([latitudePulang, longitudePulang]).addTo(mapPulang);
-  </script>
-
 @endforeach
 
 <style>

@@ -58,6 +58,7 @@ Route::middleware(['auth:karyawan'])->group(function (){
 Route::middleware(['auth:admin'])->group(function (){
     Route::get('/dashboardAdmin', [AdminController::class, 'dashboard']);
     Route::get('/dataKaryawan', [AdminController::class, 'dataKaryawan']);
+    Route::post('/getNamaKaryawan', [AdminController::class, 'getNameKaryawan']);
     Route::get('/LogoutAdmin', [AuthController::class, 'LogoutAdmin']);
     Route::post('/addKaryawan', [AdminController::class, 'addKaryawan']);
     Route::post('/editKaryawan/{NIP}', [AdminController::class, 'editKaryawan']);

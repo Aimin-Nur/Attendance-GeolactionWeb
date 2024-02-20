@@ -578,6 +578,8 @@ class ComposerStaticInit188799febb978450fb35872eca435eb9
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Mail\\Izin' => __DIR__ . '/../..' . '/app/Mail/Izin.php',
+        'App\\Mail\\PemberitahuanIzin' => __DIR__ . '/../..' . '/app/Mail/PemberitahuanIzin.php',
+        'App\\Mail\\SavePerizinan' => __DIR__ . '/../..' . '/app/Mail/SavePerizinan.php',
         'App\\Models\\Absen' => __DIR__ . '/../..' . '/app/Models/Absen.php',
         'App\\Models\\ModelAdmin' => __DIR__ . '/../..' . '/app/Models/ModelAdmin.php',
         'App\\Models\\ModelIzin' => __DIR__ . '/../..' . '/app/Models/ModelIzin.php',

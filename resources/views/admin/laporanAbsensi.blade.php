@@ -66,7 +66,7 @@
                                 <div class="row mt-2">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <select name="nip" id="nip" class="form-select">
+                                            <select name="nip" id="nip" class="form-select" required>
                                                 <option value="">Pilih Karyawan</option>
                                                 @foreach ($karyawan as $pegawai )
                                                     <option value="{{$pegawai->NIP}}">{{$pegawai->nama_lengkap}}</option>

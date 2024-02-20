@@ -28,5 +28,10 @@ class ModelIzin extends Authenticatable
         'updated_at'
     ];
 
+    public function pegawai()
+    {
+        return $this->belongsTo(ModelKaryawan::class, 'NIP', 'NIP');
+    }
+
 
 }

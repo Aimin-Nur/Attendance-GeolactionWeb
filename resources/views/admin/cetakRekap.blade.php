@@ -74,7 +74,7 @@
         @foreach ($rekap as $absen)
         <tr>
           <th>{{$absen->NIP}}</th>
-          <th>{{$absen->nama_lengkap}}</th>
+          <th>{{$absen->nama_lengkap ?? ''}}</th>
           <th>{{$absen->Tgl_1 ?? '0'}}</th>
           <th>{{$absen->Tgl_2 ?? '0'}}</th>
           <th>{{$absen->Tgl_3 ?? '0'}}</th>
@@ -161,12 +161,12 @@
       <tbody>
         @foreach ($Rekapizin as $izin)
         <tr>
-          <th>{{$izin->NIP}}</th>
-          <th>{{$izin->nama_lengkap}}</th>
+          <th>{{$izin->NIP ?? ''}}</th>
+          <th>{{$izin->nama_lengkap ?? ''}}</th>
           <th>
             @if (isset($izin->tgl_1))
                 @if ($izin->tgl_1 == 'Sakit')
-                    S
+                    Sakit
                 @elseif ($izin->tgl_1 == 'Izin')
                     I
                 @else
@@ -224,9 +224,9 @@
       </thead>
       <tbody>
         <tr>
-          <th class="text-center rowtotal mono">{{$pegawaiTerlambat->nama_lengkap}}</th>
+          <th class="text-center rowtotal mono">{{$pegawaiTerlambat->nama_lengkap ?? 'Tidak Ada' }}</th>
           <th class="text-center rowtotal mono">{{$pegawaiIzin->nama_lengkap ?? 'Tidak Ada'}}</th>
-          <th class="text-center rowtotal mono">{{$pegawaiSakit->nama_lengkap}}</th>
+          <th class="text-center rowtotal mono">{{$pegawaiSakit->nama_lengkap ?? 'Tidak Ada'}}</th>
         </tr>
       </tbody>
     </table>
@@ -236,7 +236,7 @@
   Rekap Absensi Karyawan diatas merupakan hasil Rekapan selama 1 Bulan.
   <br/> Pastikan Anda telah mencetak laporan bulanan setiap akhir bulan yang berjalan.
   <br/>
-  <strong>~El-Wazir~</strong>
+  <strong>~Thank You~</strong>
 </div>
 </div>
        <!-- END EDMO HTML (Happy Coding!)-->

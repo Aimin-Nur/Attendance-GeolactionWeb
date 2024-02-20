@@ -56,20 +56,20 @@
                   <div class="col-4">
                     <div class="form-group">
                       <form action="/getNamaKaryawan" method="POST">
-                        @csrf
-                            <input type="text" name="nama_karyawan" placeholder="Nama Karyawan" class="form-control">
-                          </div>
-                        </div>
-                        <div class="col-2">
-                          <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h1.5" /><path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M20.2 20.2l1.8 1.8" /></svg> Cari Karyawan
-                            </button>
+                      <input type="text" name="nama_karyawan" id="nama_karyawan" placeholder="Nama Karyawan" class="form-control">
                       </form>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h1.5" /><path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M20.2 20.2l1.8 1.8" /></svg> Cari Karyawan
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
+            </form>
               <div class="table-responsive">
                 <table
     class="table table-vcenter table-mobile-md card-table">
@@ -82,7 +82,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($dataKaryawan as $karyawan )
+                   
                     <tr>
                       <td data-label="Name" >
                         <div class="d-flex py-1 align-items-center">
@@ -95,30 +95,30 @@
                             <img src="{{asset('assets/img/sample/avatar/avatar1.jpg')}}" alt="avatar" class="avatar me-2">
                             @endif
                           <div class="flex-fill">
-                            <div class="font-weight-medium">{{$karyawan->nama_lengkap}}</div>
-                            <div class="text-muted"><a href="#" class="text-reset">{{$karyawan->no_hp}}</a></div>
+                            <div class="font-weight-medium">{{$dataKaryawan->nama_lengkap}}</div>
+                            <div class="text-muted"><a href="#" class="text-reset">{{$dataKaryawan->no_hp}}</a></div>
                           </div>
                         </div>
                       </td>
                       <td data-label="Title" >
-                        <div>{{$karyawan->jabatan}}</div>
-                        <div class="text-muted">{{$karyawan->NIP}}</div>
+                        <div>{{$dataKaryawan->jabatan}}</div>
+                        <div class="text-muted">{{$dataKaryawan->NIP}}</div>
                       </td>
                       <td class="text-muted" data-label="Role" >
-                        {{$karyawan->email}}
+                        {{$dataKaryawan->email}}
                       </td>
                       <td>
                         <div class="btn-list flex-nowrap">
-                          <a href="#" data-bs-toggle="modal" data-bs-target="#modal-edit{{$karyawan->NIP}}" class="btn">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#modal-edit{{$dataKaryawan->NIP}}" class="btn">
                             Edit
                           </a>
-                          <a href="#" data-bs-toggle="modal" data-bs-target="#modal-danger{{$karyawan->NIP}}" class="btn btn-danger">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#modal-danger{{$dataKaryawan->NIP}}" class="btn btn-danger">
                             Delete
                           </a>
                         </div>
                       </td>
                     </tr>
-                    @endforeach
+                   
                   </tbody>
                 </table>
               </div>

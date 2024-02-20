@@ -19,4 +19,9 @@ class Absen extends Model
         'status',
         'keterlambatan'
     ];
+
+    public function pegawai()
+    {
+        return $this->belongsTo(ModelKaryawan::class, 'NIP', 'NIP');
+    }
 }

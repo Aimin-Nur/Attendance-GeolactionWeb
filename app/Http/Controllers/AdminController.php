@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use App\Mail\Izin;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminController extends Controller
 {
@@ -228,12 +229,31 @@ class AdminController extends Controller
         //     $query->where('nama_lengkap', 'like', '%' . $request->nama_karyawan . '%');
         // }
     
-        $dataKaryawan =  DB::table('perizinan')
-        ->select('perizinan.*', 'nama_lengkap', 'jabatan', 'tgl_izin','status','keterangan','status_approved')
-        ->join('pegawai', 'perizinan.NIP', '=', 'pegawai.NIP')
-        ->where('tgl_izin', 'LIKE', '%' .$request->search. '%')
-        ->get();
-        return view('admin.monitoringIzin', compact('dataKaryawan'));
+        // $dataKaryawan =  DB::table('perizinan')->get();
+        // // ->select('perizinan1.*', 'pegawai.nama_lengkap', 'pegawai.jabatan')
+        // // ->join('pegawai', 'perizinan1.NIP', '=', 'pegawai.NIP')
+        // // ->where('perizinan1.tgl_izin', 'LIKE', '%' . $request->search . '%')
+        // // ->simplePaginate(5);
+
+        $dataKaryawan = ModelIzin::with('pegawai')->get();
+    
+
+        $countData =  DB::table('perizinan')->count();
+        return view('admin.monitoringIzin', compact('dataKaryawan', 'countData'));
+    }
+
+
+    public function getNameKaryawan(Request $request)
+    {
+        if($request->has('nama_karyawan')){
+            $dataKaryawan = DB::table('pegawai')
+            ->where('nama_lengkap', 'LIKE', '%' .$request->nama_karyawan. '%')
+            ->first();
+        }else{
+            $dataKaryawan = "Tidak Ditemukan.";
+        }
+
+        return view('admin.karyawanGetName', compact('dataKaryawan'));
     }
 
 
@@ -241,14 +261,8 @@ class AdminController extends Controller
     {
         $izin = ModelIzin::where('id', $id)->first();
 
-        $emailKaryawan = ModelIzin::where('id', $id)
-            ->select('pegawai.NIP', 'pegawai.email')
-            ->join('pegawai', 'perizinan.NIP', '=', 'pegawai.NIP')
-            ->first();
+        $emailKaryawan = $request->input('field_email');
         
-        if (!$izin) {
-            return redirect('/monitoring/perizinan')->with('error', 'Pegawai tidak ditemukan');
-        }
 
         // Simpan perubahan data
         $izin->status_approved = $request->input('status_approved');
@@ -335,8 +349,11 @@ class AdminController extends Controller
                 ->whereRaw('YEAR(tgl_izin)="' . $tahun . '"')
                 ->get();
 
-        
-        return view('admin.cetakLaporan', compact('nip', 'bulan', 'tahun', 'namaBulan', 'karyawan','absen','hadir', 'jumlahIzin', 'jumlahSakit', 'jumlahTelat', 'jumlahOntime', 'cekIzin', 'dataPerizinan'));
+        // $pdf = Pdf::loadView('admin.cetakLaporan', ['nip' => $nip, 'bulan' => $bulan, 'tahun' => $tahun, 'namaBulan' => $namaBulan, 'karyawan' => $karyawan, 'absen' => $absen, 'hadir' => $hadir, 'jumlahIzin' => $jumlahIzin, 'jumlahSakit' => $jumlahSakit, 'jumlahTelat' => $jumlahTelat, 'jumlahOntime' => $jumlahOntime, 'cekIzin' => $cekIzin, 'dataPerizinan' => $dataPerizinan]);
+        // return $pdf->download('laporan.pdf');
+
+        return view('admin.cetakLaporan', compact('nip','bulan', 'karyawan', 'namaBulan','tahun','jumlahTelat', 'jumlahIzin', 'jumlahOntime', 'jumlahTelat', 'jumlahSakit','cekIzin', 'absen','hadir','dataPerizinan'));
+       
     }
 
     public function cetakRekapan(Request $request)
@@ -463,6 +480,10 @@ class AdminController extends Controller
             $jumlahSakit = $pegawaiSakit ? $pegawaiSakit->totalSakit : 0;
 
         return view('admin.cetakRekap', compact('bulan','namaBulan','tahun','rekap','jumlahTelat','pegawaiTerlambat','pegawaiIzin','pegawaiSakit','Rekapizin'));
+
+
+        // $pdf = Pdf::loadView('admin.cetakRekap', ['bulan' => $bulan,  'namaBulan' => $namaBulan, 'tahun' => $tahun, 'rekap' => $rekap, 'pegawaiTerlambat' => $pegawaiTerlambat, 'pegawaiIzin' => $pegawaiIzin, 'pegawaiSakit' => $pegawaiSakit,   'jumlahTelat' => $jumlahTelat, 'Rekapizin' => $Rekapizin]);
+        // return $pdf->download('rekap.pdf');
     }
 
 
